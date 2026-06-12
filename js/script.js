@@ -26,82 +26,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Sistema de Ceniza y Ascuas (DS3 Style)
+// Sistema Fuego Creativo: Ascuas y Ceniza focalizada
 const canvas = document.getElementById('ash-canvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
+    
     let particles = [];
-    const particleCount = 70;
+    const emberCount = 100; // Gran volumen de fuego
+    const ashCount = 40;    // Poca ceniza muerta
 
-    for (let i = 0; i < particleCount; i++) {
-        // 20% de probabilidad de ser un ascua incandescente (ember)
-        const isEmber = Math.random() < 0.2; 
-        
+    for (let i = 0; i < emberCount + ashCount; i++) {
+        let isEmber = i < emberCount;
         particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            r: Math.random() * 2 + 0.5,     
-            d: Math.random() * 20,          
-            vx: Math.random() * 1 - 0.5,    
-            vy: Math.random() * 1 + 0.2,    
             isEmber: isEmber,
-            // Asigna color: naranja/carmesí con distina opacidad para las ascuas, y grises para la ceniza
-            color: isEmber 
-                ? `rgba(226, 88, 34, ${Math.random() * 0.7 + 0.3})` 
-                : `rgba(180, 180, 180, ${Math.random() * 0.4 + 0.1})`
+            // Las ascuas nacen en el centro inferior. La ceniza cae en cualquier sitio.
+            x: isEmber ? (width / 2) + (Math.random() * 200 - 100) : Math.random() * width,
+            y: isEmber ? height + Math.random() * 100 : Math.random() * height,
+            r: isEmber ? Math.random() * 2 + 0.8 : Math.random() * 2 + 0.5, // Tamaño
+            d: Math.random() * 20, 
+            // Las ascuas se abren hacia los lados; la ceniza cae más recta
+            vx: isEmber ? (Math.random() - 0.5) * 1.5 : Math.random() * 1 - 0.5,
+            vy: isEmber ? Math.random() * 2 + 1.2 : Math.random() * 1 + 0.2, 
+            maxOpacity: isEmber ? Math.random() * 0.8 + 0.2 : Math.random() * 0.4 + 0.1
         });
     }
 
     let angle = 0;
-    function drawAsh() {
+    function drawFire() {
         ctx.clearRect(0, 0, width, height);
-        angle += 0.01;
-        
+        angle += 0.02; // Acelera el parpadeo del fuego
+
         for (let i = 0; i < particles.length; i++) {
             let p = particles[i];
-            
             ctx.beginPath();
-            ctx.fillStyle = p.color;
             
-            // Si es un ascua, aplicamos un halo de luz de renderizado por hardware
             if (p.isEmber) {
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = 'rgba(255, 69, 0, 0.8)';
+                // Físicas del fuego de abajo arriba, ensanchándose
+                p.y -= p.vy;
+                p.x += p.vx + Math.sin(angle + p.d) * 0.5;
                 
-                // Las ascuas flotan hacia ARRIBA y de forma más errática
-                p.y -= (p.vy * 0.8);
-                p.x += Math.sin(angle * 2 + p.d) * 1;
+                // Magia visual: pierden brillo conforme suben (Y se acerca a 0)
+                let life = Math.max(0, p.y / height); // 1 abajo, 0 arriba
+                let currentOpacity = p.maxOpacity * life;
+                
+                // Color super caliente con luz dinámica
+                ctx.fillStyle = `rgba(255, 100, 30, ${currentOpacity})`;
+                ctx.shadowBlur = 15 * life; // Brilla más cuanto más bajo
+                ctx.shadowColor = `rgba(255, 69, 0, ${life})`;
             } else {
-                // Quitamos el glow para que no afecte a la ceniza (ahorra cálculo)
-                ctx.shadowBlur = 0;
-                
-                // La ceniza cae hacia ABAJO pesadamente
-                p.y += Math.cos(angle + p.d) * 0.5 + p.vy;
+                // La ceniza gris de arriba abajo
+                p.y += p.vy;
                 p.x += Math.sin(angle) * 0.5 + p.vx;
+                ctx.fillStyle = `rgba(150, 150, 150, ${p.maxOpacity})`;
+                ctx.shadowBlur = 0;
             }
 
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
             ctx.fill();
             
-            // Control de límites (reposicionamiento infinito)
-            if (p.x > width + 10 || p.x < -10 || p.y > height + 10 || p.y < -10) {
-                if (p.isEmber) {
-                    // Ascuas renacen abajo para flotar alto
-                    particles[i].x = Math.random() * width;
-                    particles[i].y = height + 10;
-                } else {
-                    // Ceniza renace arriba para caer
-                    particles[i].x = Math.random() * width;
-                    particles[i].y = -10;
+            // Reciclaje de partículas invisibles
+            if (p.isEmber) {
+                // Si el ascua desaparece arriba o en los lados, vuelve al origen del fuego
+                if (p.y < 0 || p.x < 0 || p.x > width) {
+                    p.x = (width / 2) + (Math.random() * 100 - 50); // Núcleo térmico
+                    p.y = height + 10;
+                }
+            } else {
+                // La ceniza vuelve al cielo
+                if (p.y > height) {
+                    p.y = -10;
+                    p.x = Math.random() * width;
                 }
             }
         }
-        requestAnimationFrame(drawAsh);
+        requestAnimationFrame(drawFire);
     }
 
-    drawAsh();
+    drawFire();
 
     window.addEventListener('resize', () => {
         width = canvas.width = window.innerWidth;
