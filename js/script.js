@@ -26,55 +26,83 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Sistema de Ceniza (Ash Particles)
+// Sistema de Ceniza y Ascuas (DS3 Style)
 const canvas = document.getElementById('ash-canvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
     let particles = [];
+    const particleCount = 70;
 
-    // Generar 60 partículas de ceniza
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < particleCount; i++) {
+        // 20% de probabilidad de ser un ascua incandescente (ember)
+        const isEmber = Math.random() < 0.2; 
+        
         particles.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            r: Math.random() * 2 + 0.5,     // Radio (tamaño variable y pequeño)
-            d: Math.random() * 20,          // Densidad (para el balanceo en el aire)
-            vx: Math.random() * 1 - 0.5,    // Deriva horizontal
-            vy: Math.random() * 1 + 0.2     // Velocidad de caída
+            r: Math.random() * 2 + 0.5,     
+            d: Math.random() * 20,          
+            vx: Math.random() * 1 - 0.5,    
+            vy: Math.random() * 1 + 0.2,    
+            isEmber: isEmber,
+            // Asigna color: naranja/carmesí con distina opacidad para las ascuas, y grises para la ceniza
+            color: isEmber 
+                ? `rgba(226, 88, 34, ${Math.random() * 0.7 + 0.3})` 
+                : `rgba(180, 180, 180, ${Math.random() * 0.4 + 0.1})`
         });
     }
 
     let angle = 0;
     function drawAsh() {
         ctx.clearRect(0, 0, width, height);
-        // Color grisáceo/blanco roto con transparencia para dar efecto polvo
-        ctx.fillStyle = 'rgba(180, 180, 180, 0.4)'; 
-        ctx.beginPath();
-        
         angle += 0.01;
+        
         for (let i = 0; i < particles.length; i++) {
             let p = particles[i];
-            ctx.moveTo(p.x, p.y);
+            
+            ctx.beginPath();
+            ctx.fillStyle = p.color;
+            
+            // Si es un ascua, aplicamos un halo de luz de renderizado por hardware
+            if (p.isEmber) {
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = 'rgba(255, 69, 0, 0.8)';
+                
+                // Las ascuas flotan hacia ARRIBA y de forma más errática
+                p.y -= (p.vy * 0.8);
+                p.x += Math.sin(angle * 2 + p.d) * 1;
+            } else {
+                // Quitamos el glow para que no afecte a la ceniza (ahorra cálculo)
+                ctx.shadowBlur = 0;
+                
+                // La ceniza cae hacia ABAJO pesadamente
+                p.y += Math.cos(angle + p.d) * 0.5 + p.vy;
+                p.x += Math.sin(angle) * 0.5 + p.vx;
+            }
+
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            ctx.fill();
             
-            // Físicas: caída más balanceo sinusoidal (como una hoja o ceniza suave)
-            p.y += Math.cos(angle + p.d) * 0.5 + p.vy;
-            p.x += Math.sin(angle) * 0.5 + p.vx;
-            
-            // Si la ceniza sale por debajo o por un lado, reiniciar arriba
-            if (p.x > width || p.x < 0 || p.y > height) {
-                particles[i] = { x: Math.random() * width, y: -10, r: p.r, d: p.d, vx: p.vx, vy: p.vy };
+            // Control de límites (reposicionamiento infinito)
+            if (p.x > width + 10 || p.x < -10 || p.y > height + 10 || p.y < -10) {
+                if (p.isEmber) {
+                    // Ascuas renacen abajo para flotar alto
+                    particles[i].x = Math.random() * width;
+                    particles[i].y = height + 10;
+                } else {
+                    // Ceniza renace arriba para caer
+                    particles[i].x = Math.random() * width;
+                    particles[i].y = -10;
+                }
             }
         }
-        ctx.fill();
         requestAnimationFrame(drawAsh);
     }
 
     drawAsh();
 
-    // Reajustar el lienzo si el usuario redimensiona la ventana
     window.addEventListener('resize', () => {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
