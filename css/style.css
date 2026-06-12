@@ -62,8 +62,33 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
     justify-content: center;
     text-align: center;
 }
-.hero h1 { font-size: 4rem; font-weight: 300; letter-spacing: -1px; margin-bottom: 0.5rem;}
-.hero h2 { color: var(--text-muted); font-weight: 300; font-size: 1.2rem; margin-bottom: 2rem;}
+.hero h1 { 
+    font-size: 4rem; 
+    font-weight: 300; 
+    letter-spacing: -1px; 
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.2s;
+}
+
+.hero h2 { 
+    color: var(--text-muted); 
+    font-weight: 300; 
+    font-size: 1.2rem; 
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+/* Aprovechamos para animar también el botón */
+.hero .btn-primary {
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.8s;
+}
+
 
 .btn-primary {
     display: inline-block;
@@ -144,4 +169,16 @@ footer { text-align: center; padding: 2rem; color: #444; font-size: 0.8rem; }
 @media (max-width: 768px) {
     .navbar { padding: 1rem 2rem; }
     .hero h1 { font-size: 3rem; }
+}
+
+/* Animaciones de entrada (Hero) */
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
