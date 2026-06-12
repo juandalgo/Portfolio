@@ -183,15 +183,28 @@ footer { text-align: center; padding: 2rem; color: #444; font-size: 0.8rem; }
     }
 }
 
-/* Sistema de partículas de ceniza */
+/* Sistema de partículas y Niebla (Estilo Dark Souls) */
 #ash-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; 
-    pointer-events: none; /* Evita que bloquee el clic en los botones */
-    opacity: 0.7; /* Sutil y oscuro */
+    z-index: -2; 
+    pointer-events: none;
 }
+.fog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    /* Crea la ilusión de niebla oscura desde abajo y sombras en los bordes */
+    background: 
+        radial-gradient(circle at 50% 150%, transparent 40%, var(--bg-dark) 80%),
+        linear-gradient(to top, var(--bg-dark) 0%, transparent 35%);
+}
+
 
