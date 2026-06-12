@@ -201,10 +201,12 @@ footer { text-align: center; padding: 2rem; color: #444; font-size: 0.8rem; }
     height: 100vh;
     z-index: -1;
     pointer-events: none;
-    /* Crea la ilusión de niebla oscura desde abajo y sombras en los bordes */
     background: 
-        radial-gradient(circle at 50% 150%, transparent 40%, var(--bg-dark) 80%),
-        linear-gradient(to top, var(--bg-dark) 0%, transparent 35%);
+        /* Halo de calor del fuego en la base invisible */
+        radial-gradient(ellipse at 50% 100%, rgba(255, 69, 0, 0.08) 0%, transparent 50%),
+        /* Niebla volumétrica asfáltica muy suave para matar el delineado */
+        linear-gradient(to top, var(--bg-dark) 0%, rgba(16, 16, 16, 0.8) 25%, rgba(16, 16, 16, 0) 100%);
 }
+
 
 
