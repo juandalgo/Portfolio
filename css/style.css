@@ -182,3 +182,16 @@ footer { text-align: center; padding: 2rem; color: #444; font-size: 0.8rem; }
         transform: translateY(0);
     }
 }
+
+/* Sistema de partículas de ceniza */
+#ash-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; 
+    pointer-events: none; /* Evita que bloquee el clic en los botones */
+    opacity: 0.7; /* Sutil y oscuro */
+}
+
