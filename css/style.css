@@ -115,6 +115,7 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
     max-width: 800px;
     margin-left: auto; /* Esto centra el bloque de texto horizontalmente */
     margin-right: auto; /* Esto centra el bloque de texto horizontalmente */
+    text-align: justify; /* <- Esto forza el bloque cuadrado perfecto */
 }
 .about p:hover { color: var(--text-main); transition: color 0.4s ease; }
 
@@ -134,39 +135,56 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
 .filter-btn.active, .filter-btn:hover { color: var(--accent-red); }
 
 .project-grid {
-    display: flex; /* Cambiado a flex */
-    flex-direction: column; /* Tarjetas de una en una, de arriba a abajo */
-    gap: 3rem; /* Más espacio para que respiren en pantalla grande */
+    display: flex;
+    flex-direction: column; /* Apiladas de una en una */
+    gap: 4rem; /* Gran separación para darles protagonismo individual */
 }
 
 .project-card {
     background-color: var(--bg-card);
-    display: flex; /* Tarjeta en horizontal en PC (imagen izq, texto der) */
-    align-items: center; 
+    display: flex;
+    flex-direction: column; /* Imagen arriba, texto abajo */
     overflow: hidden;
     position: relative;
     border: 1px solid transparent;
     filter: grayscale(100%); 
     transition: all 0.4s ease; 
-    width: 100%; /* Ocupa todo el espacio de la columna */
-    height: 250px; /* Altura controlada, ajusta a tu gusto */
+    width: 100%; 
 }
 
-/* Redimensiona la imagen para que sea la mitad de la tarjeta y vertical */
 .card-img.placeholder-img {
-    height: 100%;
-    width: 40%;
+    width: 100%;
+    height: 350px; /* Tamaño impactante para las imágenes */
     background-color: #222;
     background-size: cover;
     background-position: center;
 }
 
 .card-info { 
-    padding: 2rem 3rem; 
-    width: 60%;
+    padding: 2rem; 
+    width: 100%;
+    background-color: #1a1a1a; /* Un color ligeramente distinto para el recuadro inferior */
 }
-.card-info h5 { font-size: 1.8rem; font-weight: 300; margin-bottom: 0.5rem; color: var(--text-main);}
-.card-info p { color: var(--accent-red); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;}
+
+.card-info h5 { 
+    font-size: 1.6rem; 
+    font-weight: 300; 
+    color: var(--text-main); 
+    margin-bottom: 0.2rem;
+}
+
+.card-info .role { 
+    color: var(--text-muted); 
+    font-size: 0.9rem; 
+    margin-bottom: 1.5rem; /* Margen antes de la descripción */
+}
+
+.card-info .desc { 
+    color: var(--text-main); 
+    font-size: 1rem; 
+    line-height: 1.5;
+}
+
 
 
 /* Esconder elementos para el filtrado JS */
@@ -218,8 +236,6 @@ body {
     font-family: var(--font-main);
     line-height: 1.6;
     overflow-x: hidden;
-    /* La viñeta de niebla que se adapta a PC y móvil sin banding */
-    box-shadow: inset 0px -200px 300px -100px rgba(16, 16, 16, 1) fixed;
 }
 
 #ash-canvas {
@@ -230,8 +246,6 @@ body {
     height: 100vh;
     z-index: -2; 
     pointer-events: none;
-    /* Un ligero difuminado general evita que el fondo asfáltico corte bruscamente */
-    filter: blur(0.5px);
 }
 
 /* Responsive adicional al final del CSS */
@@ -241,14 +255,29 @@ body {
         height: auto; 
     }
     .card-img.placeholder-img {
-        width: 100%;
         height: 200px;
     }
     .card-info {
-        width: 100%;
         padding: 1.5rem;
     }
 }
+
+.fog-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background: 
+        /* Halo anaranjado vivo de la hoguera en la base */
+        radial-gradient(circle at 50% 100%, rgba(226, 88, 34, 0.15) 0%, transparent 50%),
+        /* Niebla asfáltica subiendo desde abajo para tapar el final de la pantalla */
+        linear-gradient(to top, var(--bg-dark) 0%, transparent 40%);
+}
+
+
 
 
 
