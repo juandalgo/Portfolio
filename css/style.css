@@ -134,27 +134,40 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
 .filter-btn.active, .filter-btn:hover { color: var(--accent-red); }
 
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    display: flex; /* Cambiado a flex */
+    flex-direction: column; /* Tarjetas de una en una, de arriba a abajo */
+    gap: 3rem; /* Más espacio para que respiren en pantalla grande */
 }
 
 .project-card {
     background-color: var(--bg-card);
-    display: block;
+    display: flex; /* Tarjeta en horizontal en PC (imagen izq, texto der) */
+    align-items: center; 
     overflow: hidden;
     position: relative;
     border: 1px solid transparent;
+    filter: grayscale(100%); 
+    transition: all 0.4s ease; 
+    width: 100%; /* Ocupa todo el espacio de la columna */
+    height: 250px; /* Altura controlada, ajusta a tu gusto */
 }
-.placeholder-img { height: 200px; background-color: #222; }
 
-/* Efecto Inside: Grises hasta hover */
-.project-card { filter: grayscale(100%); transition: all 0.4s ease; }
-.project-card:hover { align-items: flex-start; filter: grayscale(0%); border-color: var(--accent-red); }
+/* Redimensiona la imagen para que sea la mitad de la tarjeta y vertical */
+.card-img.placeholder-img {
+    height: 100%;
+    width: 40%;
+    background-color: #222;
+    background-size: cover;
+    background-position: center;
+}
 
-.card-info { padding: 1.5rem; }
-.card-info h5 { font-size: 1.2rem; font-weight: 400; margin-bottom: 0.5rem;}
-.card-info p { color: var(--text-muted); font-size: 0.85rem;}
+.card-info { 
+    padding: 2rem 3rem; 
+    width: 60%;
+}
+.card-info h5 { font-size: 1.8rem; font-weight: 300; margin-bottom: 0.5rem; color: var(--text-main);}
+.card-info p { color: var(--accent-red); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;}
+
 
 /* Esconder elementos para el filtrado JS */
 .hidden { display: none !important; }
@@ -221,6 +234,21 @@ body {
     filter: blur(0.5px);
 }
 
+/* Responsive adicional al final del CSS */
+@media (max-width: 768px) {
+    .project-card {
+        flex-direction: column; /* Volver a poner imagen arriba en móvil */
+        height: auto; 
+    }
+    .card-img.placeholder-img {
+        width: 100%;
+        height: 200px;
+    }
+    .card-info {
+        width: 100%;
+        padding: 1.5rem;
+    }
+}
 
 
 
