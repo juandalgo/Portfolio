@@ -34,80 +34,140 @@
 
  
     <!-- Projects -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <h3 class="section-title">Selected Works</h3>
-            
-            <!-- Filtros -->
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="game-design">Game Design</button>
-                <button class="filter-btn" data-filter="level-design">Level Design</button>
-            </div>
+<section class="projects" id="projects">
+    <div class="container">
+        <h3 class="section-title">Selected Works</h3>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="game-design">Game Design</button>
+            <button class="filter-btn" data-filter="level-design">Level Design</button>
+        </div>
 
-            <!-- Published Games -->
-            <h4 class="category-title">Published Games</h4>
-            <div class="project-grid">
-                <!-- Ejemplo 1: Crisol -->
-                <a href="crisol.html" class="project-card mix game-design level-design">
-                    <div class="card-img placeholder-img"></div>
+        <h4 class="category-title">Published Games</h4>
+        <div class="project-grid">
+            
+            <!-- CRISOL -->
+            <div class="project-wrapper mix game-design level-design">
+                <a href="crisol.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=Crisol+Image)" alt="Crisol" class="card-img">
                     <div class="card-info">
                         <h5>Crisol</h5>
-                        <p>Game & Level Design</p>
-                        <p class="desc">Una aventura narrativa donde el diseño de niveles guía al jugador a través de la psicología del personaje, implementado en Unreal Engine 5.</p>
+                        <p class="role">Game & Level Design</p>
                     </div>
                 </a>
-                <!-- Ejemplo 2: Street Runner -->
-                <a href="#" class="project-card mix level-design">
-                    <div class="card-img placeholder-img"></div>
-                    <div class="card-info">
-                        <h5>Street Runner</h5>
-                        <p>Level Design</p>
-                        <p class="desc">Una aventura narrativa donde el diseño de niveles guía al jugador a través de la psicología del personaje, implementado en Unreal Engine 5.</p>
-                    </div>
-                </a>
-                <!-- Ejemplo 3: Blackstorm -->
-                <a href="#" class="project-card mix game-design level-design">
-                    <div class="card-img placeholder-img"></div>
-                    <div class="card-info">
-                        <h5>Blackstorm</h5>
-                        <p>Game & Level Design</p>
-                        <p class="desc">Una aventura narrativa donde el diseño de niveles guía al jugador a través de la psicología del personaje, implementado en Unreal Engine 5.</p>
-                    </div>
-                </a>
+                <div class="project-desc">
+                    <p>Brief description placeholder for Crisol. Explain here the core design problem you solved, how the mechanics integrate with the experience, and what values you brought to the team during the development cycle.</p>
+                </div>
             </div>
 
-            <!-- Personal Projects -->
-            <h4 class="category-title">Personal Projects</h4>
-            <div class="project-grid">
-                <a href="#" class="project-card mix level-design">
+            <!-- STREET RUNNER -->
+            <div class="project-wrapper mix game-design">
+                <a href="street-runner.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=Street+Runner+Image)" alt="Street Runner" class="card-img">
+                    <div class="card-info">
+                        <h5>Street Runner</h5>
+                        <p class="role">Game Design</p>
+                    </div>
+                </a>
+                <div class="project-desc">
+                    <p>Brief description for Street Runner. A short, justified paragraph detailing the main systems designed and how the pacing was structured to keep players engaged.</p>
+                </div>
+            </div>
+
+            <!-- BLACKSTORM -->
+            <div class="project-wrapper mix level-design">
+                <a href="blackstorm.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=Blackstorm+Image)" alt="Blackstorm" class="card-img">
+                    <div class="card-info">
+                        <h5>Blackstorm</h5>
+                        <p class="role">Level Design</p>
+                    </div>
+                </a>
+                <div class="project-desc">
+                    <p>Brief description for Blackstorm. Explaining the architectural blockouts, flow of the levels, and how environmental storytelling was applied to guide the player.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <h4 class="category-title">Personal Projects</h4>
+        <div class="project-grid">
+            
+            <!-- MAFIA MISSION -->
+            <div class="project-wrapper mix game-design level-design">
+                <a href="mafia-mission.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=Mafia+Mission+Image)" alt="Mafia Mission" class="card-img">
                     <div class="card-info">
                         <h5>Mafia Mission</h5>
+                        <p class="role">Personal Study - Game & Level Design</p>
                     </div>
                 </a>
-                <a href="#" class="project-card mix level-design">
+                <div class="project-desc">
+                    <p>Analysis and recreation of mafia-themed mechanics. Focused on tension-building level design and systemic AI behavior tests.</p>
+                </div>
+            </div>
+
+            <!-- RE VILLAGE LD -->
+            <div class="project-wrapper mix level-design">
+                <a href="re-village.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=RE+Village+LD+Image)" alt="RE Village LD" class="card-img">
                     <div class="card-info">
                         <h5>RE Village LD</h5>
+                        <p class="role">Personal Study - Level Design</p>
                     </div>
                 </a>
-                <a href="#" class="project-card mix game-design">
+                <div class="project-desc">
+                    <p>A deep dive and greyboxing of a Resident Evil Village inspired map. Testing looping pathways, key-and-door pacing, and tension nodes.</p>
+                </div>
+            </div>
+
+            <!-- DICE PROJECT -->
+            <div class="project-wrapper mix game-design">
+                <a href="dice-project.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=Dice+Project+Image)" alt="Dice Project" class="card-img">
                     <div class="card-info">
                         <h5>Dice Project</h5>
+                        <p class="role">Personal prototype - Game Design</p>
                     </div>
                 </a>
-                <a href="#" class="project-card mix game-design sequence">
+                <div class="project-desc">
+                    <p>A systemic prototype focusing on probability mechanics. Exploring how randomness can be balanced to create fair but surprising player encounters.</p>
+                </div>
+            </div>
+
+            <!-- TOWER DEFENCE -->
+            <div class="project-wrapper mix game-design">
+                <a href="tower-defence.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=Tower+Defence+Image)" alt="Tower Defence" class="card-img">
                     <div class="card-info">
                         <h5>Tower Defence Project</h5>
+                        <p class="role">Personal prototype - Game Design</p>
                     </div>
                 </a>
-                <a href="#" class="project-card mix game-design">
+                <div class="project-desc">
+                    <p>Balancing test for a classic tower defence. Documentation of unit values, economy progression, and wave pacing algorithms.</p>
+                </div>
+            </div>
+
+            <!-- POLAR PROJECT -->
+            <div class="project-wrapper mix level-design">
+                <a href="polar-project.html" class="project-card">
+                    <img src="[placehold.co](https://placehold.co/1200x500/111/444?text=Polar+Project+Image)" alt="Polar Project" class="card-img">
                     <div class="card-info">
                         <h5>Polar Project</h5>
+                        <p class="role">Personal prototype - Level Design</p>
                     </div>
                 </a>
+                <div class="project-desc">
+                    <p>Vertical slice of an exploration game. Testing visibility, landmarks in low-contrast environments, and player guidance without UI.</p>
+                </div>
             </div>
+            
         </div>
-    </section>
+    </div>
+</section>
+
 
     
    <!-- About -->
