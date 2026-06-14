@@ -169,14 +169,19 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
 
 .project-grid {
     display: flex;
-    flex-direction: column; /* Apiladas de una en una */
-    gap: 4rem; /* Gran separación para darles protagonismo individual */
+    flex-direction: column;
+    gap: 5rem; /* Ampliado para separar los conjuntos completos */
+}
+
+/* El bloque contenedor que se filtra con JS */
+.project-wrapper {
+    width: 100%;
 }
 
 .project-card {
     background-color: var(--bg-card);
     display: flex;
-    flex-direction: column; /* Imagen arriba, texto abajo */
+    flex-direction: column;
     overflow: hidden;
     position: relative;
     border: 1px solid transparent;
@@ -185,18 +190,24 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
     width: 100%; 
 }
 
-.card-img.placeholder-img {
+/* Solo la tarjeta recibe el efecto hover */
+.project-card:hover {
+    filter: grayscale(0%);
+    border-color: var(--accent-red);
+}
+
+.card-img {
     width: 100%;
-    height: 350px; /* Tamaño impactante para las imágenes */
-    background-color: #222;
-    background-size: cover;
-    background-position: center;
+    height: 350px;
+    object-fit: cover; /* Asegura que la imagen no se deforme */
+    display: block;
 }
 
 .card-info { 
-    padding: 2rem; 
+    padding: 1.5rem 2rem; 
     width: 100%;
-    background-color: #1a1a1a; /* Un color ligeramente distinto para el recuadro inferior */
+    background-color: #151515;
+    border-top: 1px solid #222;
 }
 
 .card-info h5 { 
@@ -209,33 +220,36 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
 .card-info .role { 
     color: var(--text-muted); 
     font-size: 0.9rem; 
-    margin-bottom: 1.5rem; /* Margen antes de la descripción */
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.card-info .desc { 
-    color: var(--text-main); 
-    font-size: 1rem; 
-    line-height: 1.5;
+/* La nueva descripción separada debajo de la ficha */
+.project-desc {
+    padding: 1.5rem 0 0 0; /* Espacio superior para separarla de la ficha */
 }
 
+.project-desc p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    text-align: justify; /* Justificado en bloque */
+    margin: 0;
+}
 
-
-/* Esconder elementos para el filtrado JS */
-.hidden { display: none !important; }
-
-/* Contact */
-.contact { padding: 10rem 0; text-center; text-align: center; }
-.contact h2 { font-size: 2.5rem; font-weight: 300; margin-bottom: 2rem; }
-.accent-link { color: var(--accent-red); font-size: 1.2rem; margin: 0 1rem; border-bottom: 1px solid transparent;}
-.accent-link:hover { border-bottom: 1px solid var(--accent-red); }
-
-footer { text-align: center; padding: 2rem; color: #444; font-size: 0.8rem; }
-
-/* Responsive */
+/* Responsive Update */
 @media (max-width: 768px) {
-    .navbar { padding: 1rem 2rem; }
-    .hero h1 { font-size: 3rem; }
+    .card-img {
+        height: 220px;
+    }
+    .card-info {
+        padding: 1.2rem;
+    }
+    .project-desc p {
+        text-align: left; /* En móviles el justificado suele crear huecos feos, mejor a la izquierda */
+    }
 }
+
 
 /* Animaciones de entrada (Hero) */
 @keyframes fadeUp {
