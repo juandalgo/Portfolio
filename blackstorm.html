@@ -1,1 +1,83 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisol | Juan Hidalgo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos específicos para la vista de proyecto */
+        .project-hero { background-color: #1a1a1a; padding: 10rem 0 4rem 0; text-align: center; }
+        .project-hero h1 { font-size: 3rem; font-weight: 300; margin-bottom: 1rem; }
+        
+        .metadata-bar {
+            background-color: var(--bg-card);
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 2rem 0;
+            margin-bottom: 4rem;
+        }
+        .meta-grid { display: flex; justify-content: space-around; flex-wrap: wrap; text-align: left;}
+        .meta-item h6 { color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .meta-item p { font-size: 1rem; color: var(--text-main); }
+        
+        .project-content h3 { color: var(--accent-red); margin-top: 3rem; margin-bottom: 1rem; }
+        .back-link { position: absolute; top: 2rem; left: 2rem; color: var(--accent-red); }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+    <header class="project-hero">
+        <div class="container">
+            <h1>Blackstorm</h1>
+            <p>A deep dive into Battle Royale Game and Level design.</p>
+        </div>
+    </header>
+
+    <!-- Caja de Metadatos -->
+    <div class="metadata-bar">
+        <div class="container meta-grid">
+            <div class="meta-item">
+                <h6>Studio</h6>
+                <p>Placeholder Studio</p> <!-- Cambiar -->
+            </div>
+            <div class="meta-item">
+                <h6>Duration</h6>
+                <p>Jan 2024 - Dec 2025</p> <!-- Cambiar -->
+            </div>
+            <div class="meta-item">
+                <h6>Engine</h6>
+                <p>Unreal Engine 5</p> <!-- Cambiar -->
+            </div>
+            <div class="meta-item">
+                <h6>Role</h6>
+                <p>Game & Level Designer</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="project-content container">
+        <h3>Overview</h3>
+        <p>Aquí escribirás una breve descripción de qué es Crisol y el reto principal al que te enfrentaste como diseñador.</p>
+
+        <h3>My Contributions</h3>
+        <ul>
+            <li>Diseño de los sistemas base de la IA y el flujo de combate.</li>
+            <li>Layouts de 3 niveles principales, desde el paper design hasta la implementación final.</li>
+            <li>Iteración y balanceo del pacing basado en pruebas de test de usuarios.</li>
+        </ul>
+        
+        <!-- Aquí añadirías imágenes/GIFs del proyecto usando <img src="..."> -->
+    </section>
+
+    <section class="contact" style="padding: 4rem 0;">
+        <div class="container">
+            <a href="index.html#projects" class="btn-primary">Back to Projects</a>
+        </div>
+    </section>
+
+</body>
+</html>
