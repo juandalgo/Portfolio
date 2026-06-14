@@ -237,6 +237,35 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
     margin: 0;
 }
 
+/* Contact */
+.contact { 
+    padding: 10rem 0 8rem 0; 
+    text-align: center; 
+    position: relative; 
+    z-index: 10; 
+}
+.contact h2 { 
+    font-size: 2.5rem; 
+    font-weight: 300; 
+    margin-bottom: 2rem; 
+    color: var(--text-main);
+}
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+.accent-link { 
+    color: var(--accent-red); 
+    font-size: 1.2rem; 
+    border-bottom: 1px solid transparent;
+    padding-bottom: 0.2rem;
+}
+.accent-link:hover { 
+    border-bottom: 1px solid var(--accent-red); 
+}
+
+
 /* Responsive Update */
 @media (max-width: 768px) {
     .card-img {
