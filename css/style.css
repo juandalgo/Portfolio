@@ -193,20 +193,32 @@ footer { text-align: center; padding: 2rem; color: #444; font-size: 0.8rem; }
     z-index: -2; 
     pointer-events: none;
 }
-.fog-overlay {
+
+/* Elimina el div .fog-overlay del HTML si quieres, ya no hará falta.
+   Aplicaremos el efecto de viñeta densa directamente sobre el body */
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* La viñeta de niebla que se adapta a PC y móvil sin banding */
+    box-shadow: inset 0px -200px 300px -100px rgba(16, 16, 16, 1) fixed;
+}
+
+#ash-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: -2; 
     pointer-events: none;
-    background: 
-        /* Halo de calor del fuego en la base invisible */
-        radial-gradient(ellipse at 50% 100%, rgba(255, 69, 0, 0.08) 0%, transparent 50%),
-        /* Niebla volumétrica asfáltica muy suave para matar el delineado */
-        linear-gradient(to top, var(--bg-dark) 0%, rgba(16, 16, 16, 0.8) 25%, rgba(16, 16, 16, 0) 100%);
+    /* Un ligero difuminado general evita que el fondo asfáltico corte bruscamente */
+    filter: blur(0.5px);
 }
+
 
 
 
