@@ -107,12 +107,14 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
 }
 
 /* About */
-.about { padding: 8rem 0; margin-top: 2rem;}
+.about { padding: 8rem 0; margin-top: 2rem; text-align: center; } /* Añade text-align aquí */
 .about p {
     font-size: 1.1rem;
     color: var(--text-muted);
     margin-bottom: 1.5rem;
     max-width: 800px;
+    margin-left: auto; /* Esto centra el bloque de texto horizontalmente */
+    margin-right: auto; /* Esto centra el bloque de texto horizontalmente */
 }
 .about p:hover { color: var(--text-main); transition: color 0.4s ease; }
 
