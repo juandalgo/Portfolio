@@ -188,6 +188,110 @@
             border: 0;
         }
 
+        /* Marco rojo fino en galería e imágenes */
+        .gallery-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1.5px solid #c0392b;
+            display: block;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease, filter 0.35s ease;
+            filter: brightness(0.9);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.05);
+        }
+        .gallery-item .zoom-hint {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 1.2rem 0.8rem 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .gallery-item:hover .zoom-hint { opacity: 1; }
+        
+        /* Marco rojo en el vídeo */
+        .responsive-video {
+            border: 1.5px solid #c0392b;
+        }
+        
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.2s ease;
+        }
+        .lightbox-overlay.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .lightbox-inner {
+            position: relative;
+            max-width: 88vw;
+            max-height: 85vh;
+            border: 1.5px solid #c0392b;
+            cursor: default;
+        }
+        .lightbox-inner img {
+            display: block;
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -18px; right: -18px;
+            width: 36px; height: 36px;
+            background: #c0392b;
+            color: #fff;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-close:hover { background: #e74c3c; }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(192,57,43,0.8);
+            color: #fff;
+            border: none;
+            width: 40px; height: 60px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-nav:hover { background: #c0392b; }
+        .lightbox-prev { left: -50px; }
+        .lightbox-next { right: -50px; }
+        .lightbox-counter {
+            position: absolute;
+            bottom: -28px; left: 0; right: 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
         /* Agrupación de botones al final del proyecto */
         .project-footer-links {
             display: flex;
@@ -270,13 +374,27 @@
                 <li>Layouts de 3 niveles principales, desde el paper design hasta la implementación final.</li>
                 <li>Iteración y balanceo del pacing basado en pruebas de test de usuarios.</li>
             </ul>
-            <!-- Galería de 4 imágenes -->
-            <div class="project-gallery">
+        <!-- Galería de 4 imágenes -->
+        <div class="project-gallery">
+            <div class="gallery-item" onclick="openLightbox(0)">
                 <img src="images/C- 1.webp" alt="Screenshot 1">
-                <img src="images/C- 2.webp" alt="Screenshot 2">
-                <img src="images/C- 3.webp" alt="Screenshot 3">
-                <img src="images/C- 4.webp" alt="Screenshot 4">
+                <div class="zoom-hint">Click to expand</div>
             </div>
+            <div class="gallery-item" onclick="openLightbox(1)">
+                <img src="images/C- 2.webp" alt="Screenshot 2">
+                <div class="zoom-hint">Click to expand</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(2)">
+                <img src="images/C- 3.webp" alt="Screenshot 3">
+                <div class="zoom-hint">Click to expand</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(3)">
+                <img src="images/C- 4.webp" alt="Screenshot 4">
+                <div class="zoom-hint">Click to expand</div>
+            </div>
+        </div>            
+
+            
             <!-- Video Responsive de YouTube -->
             <div class="responsive-video">
                 <!-- Sustituye la URL en "src" por el enlace "Embed" de tu video de YouTube -->
@@ -293,7 +411,56 @@
         </div>
     </section>
 
-
+    
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightboxOnBg(event)">
+        <div class="lightbox-inner" id="lightbox-inner">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">‹</button>
+            <img id="lightbox-img" src="" alt="">
+            <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
+    </div>
+    
+    <script>
+    const images = [
+        'images/C- 1.webp',
+        'images/C- 2.webp',
+        'images/C- 3.webp',
+        'images/C- 4.webp'
+    ];
+    let current = 0;
+    
+    function openLightbox(i) {
+        current = i;
+        document.getElementById('lightbox-img').src = images[i];
+        updateCounter();
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function closeLightboxOnBg(e) {
+        if (e.target === document.getElementById('lightbox')) closeLightbox();
+    }
+    function changeImage(dir) {
+        current = (current + dir + images.length) % images.length;
+        document.getElementById('lightbox-img').src = images[current];
+        updateCounter();
+    }
+    function updateCounter() {
+        document.getElementById('lightbox-counter').textContent = (current + 1) + ' / ' + images.length;
+    }
+    document.addEventListener('keydown', e => {
+        if (!document.getElementById('lightbox').classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') changeImage(1);
+        if (e.key === 'ArrowLeft') changeImage(-1);
+    });
+    </script>
+    
 </body>
 
 </html>
