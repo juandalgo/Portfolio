@@ -10,40 +10,49 @@
         .project-navbar { background: transparent; backdrop-filter: none; }
         .project-navbar.scrolled { background: rgba(16, 16, 16, 0.9); backdrop-filter: blur(10px); }
 
-        /* Hero con Video de Fondo */
+       /* Hero con Imagen de Fondo */
         .project-hero { 
             position: relative;
-            height: 60vh; /* Ocupa un poco más de media pantalla */
+            height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            overflow: hidden;
+            /* Las siguientes reglas aseguran que la imagen cubra todo y quede centrada */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            z-index: -2;
-            object-fit: cover;
-        }
-
-        /* Oscurece el video para que resalte el texto */
-        .video-overlay {
+        /* Capa oscura sobre la imagen para que el texto se lea perfectamente */
+        .image-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(16, 16, 16, 0.6);
-            z-index: -1;
+            background-color: rgba(16, 16, 16, 0.7); /* Oscuridad al 70% */
+            z-index: 1;
         }
+
+        /* Forzamos que el texto esté por encima de la capa oscura */
+        .hero-content-project {
+            position: relative;
+            z-index: 2; 
+        }
+
+        .hero-content-project h1 { 
+            font-size: 3.5rem; 
+            font-weight: 300; 
+            margin-bottom: 0.5rem; 
+            color: #ffffff;
+        }
+
+        .hero-content-project p {
+            font-size: 1.2rem;
+            color: #cccccc;
+        }
+
 
         .hero-content-project h1 { 
             font-size: 3.5rem; 
@@ -132,19 +141,16 @@
         </ul>
     </nav>
 
-    <!-- Cabecera de Proyecto con Video -->
-    <header class="project-hero">
-        <div class="video-overlay"></div>
-        <!-- Sustituye el src por la ruta a tu video (ej. /assets/videos/crisol.mp4) -->
-        <video class="hero-video" autoplay loop muted playsinline>
-            <source src="videos/CrisolVideo.mp4" type="video/mp4">
-        </video>
+        <!-- Cabecera de Proyecto con Imagen de Fondo -->
+    <header class="project-hero" style="background-image: url('images/Crisol-Main.Webp');">
+        <div class="image-overlay"></div>
         
         <div class="container hero-content-project">
             <h1>Crisol</h1>
             <p>A deep dive into narrative level design.</p>
         </div>
     </header>
+
 
     <!-- Caja de Metadatos (Gris claro) -->
     <div class="metadata-bar">
