@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,46 +6,351 @@
     <title>Crisol | Juan Hidalgo</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Estilos específicos para la vista de proyecto */
-        .project-hero { background-color: #1a1a1a; padding: 10rem 0 4rem 0; text-align: center; }
-        .project-hero h1 { font-size: 3rem; font-weight: 300; margin-bottom: 1rem; }
+        /* Correcciones Nav en proyectos */
+        .project-navbar { background: transparent; backdrop-filter: none; }
+        .project-navbar.scrolled { background: rgba(16, 16, 16, 0.9); backdrop-filter: blur(10px); }
+
+       /* Hero con Imagen de Fondo (Alineado Abajo) */
+        .project-hero { 
+            position: relative;
+            height: 60vh;
+            display: flex;
+            align-items: flex-end; /* Lo alinea hacia abajo */
+            justify-content: center;
+            text-align: center;
+            padding-bottom: 4rem; /* Separación desde el borde inferior */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
         
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(16, 16, 16, 0.4); /* He bajado la oscuridad para ver mejor la foto */
+            z-index: 1;
+        }
+        
+        .hero-content-project {
+            position: relative;
+            z-index: 2; 
+        }
+        
+        /* Título Gigante con Outline Negro */
+        .hero-content-project h1 { 
+            font-size: 5rem; /* Tamaño ampliado */
+            font-weight: 300; 
+            margin-bottom: 0.5rem; 
+            color: #ffffff;
+            /* Efecto outline solido + sombra difuminada */
+            text-shadow: 
+                -2px -2px 0 #000,  
+                 2px -2px 0 #000,
+                -2px  2px 0 #000,
+                 2px  2px 0 #000,
+                 0px  4px 15px rgba(0,0,0,0.8);
+        }
+        
+        .hero-content-project p {
+            font-size: 1.3rem;
+            color: #e0e0e0;
+            margin-bottom: 2rem; /* Espacio para el botón de Steam */
+            text-shadow: 
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                -1px  1px 0 #000,
+                 1px  1px 0 #000,
+                 0px  2px 10px rgba(0,0,0,0.8);
+        }
+
+
+
+        .hero-content-project h1 { 
+            font-size: 3.5rem; 
+            font-weight: 300; 
+            margin-bottom: 0.5rem; 
+            color: #ffffff;
+        }
+
+        .hero-content-project p {
+            font-size: 1.2rem;
+            color: #cccccc;
+        }
+
+        /* Barra de Metadatos (Gris claro) */
         .metadata-bar {
-            background-color: var(--bg-card);
+            background-color: var(--bg-card); /* Gris más claro definido en tu CSS principal */
             border-top: 1px solid #333;
             border-bottom: 1px solid #333;
             padding: 2rem 0;
-            margin-bottom: 4rem;
         }
-        .meta-grid { display: flex; justify-content: space-around; flex-wrap: wrap; text-align: left;}
-        .meta-item h6 { color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .meta-item p { font-size: 1rem; color: var(--text-main); }
+
+        .meta-grid { 
+            display: flex; 
+            justify-content: space-between; 
+            flex-wrap: wrap; 
+            text-align: left;
+        }
+
+        .meta-item h6 { 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            font-size: 0.7rem; 
+            letter-spacing: 1px; 
+            margin-bottom: 0.5rem; 
+        }
+
+        .meta-item p { 
+            font-size: 1rem; 
+            color: var(--text-main); 
+        }
+
+        /* Área de Contenido (Fondo Oscuro) */
+        .project-content {
+            background-color: var(--bg-dark); /* Devuelve la oscuridad total */
+            padding: 6rem 0;
+        }
+
+        .project-content h3 { 
+            color: var(--accent-red); 
+            margin-top: 3rem; 
+            margin-bottom: 1rem; 
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .project-content p, .project-content ul {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        .project-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-content li {
+            margin-bottom: 0.8rem;
+        }
         
-        .project-content h3 { color: var(--accent-red); margin-top: 3rem; margin-bottom: 1rem; }
-        .back-link { position: absolute; top: 2rem; left: 2rem; color: var(--accent-red); }
+        /* Botón de Steam Integrado en la estética */
+        .btn-steam {
+            display: inline-block;
+            background-color: transparent; 
+            color: #fff;
+            padding: 0.8rem 2rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border: 1px solid #ffffff;
+            background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente oscuro */
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .btn-steam:hover {
+            background-color: #fff;
+            color: #000;
+        }
+        
+        /* Galería de 4 imágenes */
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+            gap: 1.5rem; /* Espacio entre fotos */
+            margin: 4rem 0; /* Separación con el resto del contenido */
+        }
+        .project-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Contenedor de Video YouTube Universal */
+        .responsive-video {
+            position: relative;
+            padding-bottom: 56.25%; /* Mantiene el aspect ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .responsive-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Marco rojo fino en galería e imágenes */
+        .gallery-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1.5px solid #333;
+            display: block;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease, filter 0.35s ease;
+            filter: brightness(0.9);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.05);
+        }
+        .gallery-item .zoom-hint {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 1.2rem 0.8rem 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .gallery-item:hover .zoom-hint { opacity: 1; }
+        
+        /* Marco rojo en el vídeo */
+        .responsive-video {
+            border: 1.5px solid #333;
+        }
+        
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.2s ease;
+        }
+        .lightbox-overlay.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .lightbox-inner {
+            position: relative;
+            width: 80vw;          /* Ancho fijo */
+            height: 80vh;         /* Alto fijo */
+            border: 1.5px solid #333;
+            cursor: default;
+        }
+        .lightbox-inner img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  /* Se adapta sin deformarse */
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -18px; right: -18px;
+            width: 36px; height: 36px;
+            background: #333;
+            color: #fff;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-close:hover { background: #e74c3c; }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(50,50,50,0.8);
+            color: #fff;
+            border: none;
+            width: 40px; height: 60px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-nav:hover { background: #c0392b; }
+        .lightbox-prev { left: -50px; }
+        .lightbox-next { right: -50px; }
+        .lightbox-counter {
+            position: absolute;
+            bottom: -28px; left: 0; right: 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Agrupación de botones al final del proyecto */
+        .project-footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap; /* En móviles se pondrán uno encima del otro si no caben */
+        }
+
+        
+        /* Modificación para móviles */
+        @media (max-width: 768px) {
+            .hero-content-project h1 { 
+                font-size: 3rem; 
+            }
+            .project-gallery { 
+                grid-template-columns: 1fr; /* 1 foto por fila en el móvil */
+            }
+        }
+
+        
     </style>
 </head>
+
+    
 <body>
 
-    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <!-- Navegación (Subpáginas de Proyecto) -->
+    <nav class="navbar project-navbar">
+        <div class="logo">JH</div>
+        <ul class="nav-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <header class="project-hero">
-        <div class="container">
+        <!-- Cabecera de Proyecto con Imagen de Fondo -->
+    <header class="project-hero" style="background-image: url('images/Crisol-Main.webp');">
+        <div class="image-overlay"></div>
+        
+        <div class="container hero-content-project">
             <h1>Crisol</h1>
-            <p>A deep dive into narrative level design.</p>
+            <p>A deep dive into narrative game and level design.</p>
         </div>
     </header>
 
-    <!-- Caja de Metadatos -->
+
+    <!-- Caja de Metadatos (Gris claro) -->
     <div class="metadata-bar">
         <div class="container meta-grid">
             <div class="meta-item">
                 <h6>Studio</h6>
-                <p>Placeholder Studio</p> <!-- Cambiar -->
+                <p>Vermila Studios</p> <!-- Cambiar -->
             </div>
             <div class="meta-item">
                 <h6>Duration</h6>
-                <p>Jan 2024 - Dec 2025</p> <!-- Cambiar -->
+                <p>Sep 2022 - Present</p> <!-- Cambiar -->
             </div>
             <div class="meta-item">
                 <h6>Engine</h6>
@@ -59,25 +363,112 @@
         </div>
     </div>
 
-    <section class="project-content container">
-        <h3>Overview</h3>
-        <p>Aquí escribirás una breve descripción de qué es Crisol y el reto principal al que te enfrentaste como diseñador.</p>
+    <!-- Contenido Oscuro -->
+    <section class="project-content">
+        <div class="container">
+            <h3>Overview</h3>
+            <p>Crisol: Theater of Idols is a first-person action horror game set in Hispania, a twisted version of Spain. Play as Gabriel, a soldier who uses his own blood as ammunition. Explore Tormentosa, uncover dark secrets, and... survive.</p>
+            <p>I am currently working at Vermila Studios, where I have been contributing as a Game Designer and Level Designer on Crisol: Theater of Idols.</p>
+            <p>I joined the project at a very early stage and have been involved throughout the level design process, as well as a significant part of the gameplay design.</p>
 
-        <h3>My Contributions</h3>
-        <ul>
-            <li>Diseño de los sistemas base de la IA y el flujo de combate.</li>
-            <li>Layouts de 3 niveles principales, desde el paper design hasta la implementación final.</li>
-            <li>Iteración y balanceo del pacing basado en pruebas de test de usuarios.</li>
-        </ul>
-        
-        <!-- Aquí añadirías imágenes/GIFs del proyecto usando <img src="..."> -->
+            <h3>My Contributions</h3>
+            <ul>
+                <li>Designed and documented gameplay systems and features.</li>
+                <li>Developed combat mechanics, weapon feel, and gameplay balance.</li>
+                <li>Owned the combat design of the final boss encounter.</li>
+                <li>Defined the level structure and progression from initial concept to implementation.</li>
+                <li>Designed gameplay spaces that supported narrative delivery and player experience.</li>
+                <li>Established mission flow, pacing, and player progression throughout the level.</li>
+                <li>Created and iterated on combat encounters.</li>
+                <li>Implemented level scripting and gameplay sequences.</li>
+            </ul>
+        <!-- Galería de 4 imágenes -->
+        <div class="project-gallery">
+            <div class="gallery-item" onclick="openLightbox(0)">
+                <img src="images/C- 1.webp" alt="Screenshot 1">
+                <div class="zoom-hint">Click to expand</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(1)">
+                <img src="images/C- 2.webp" alt="Screenshot 2">
+                <div class="zoom-hint">Click to expand</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(2)">
+                <img src="images/C- 3.webp" alt="Screenshot 3">
+                <div class="zoom-hint">Click to expand</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(3)">
+                <img src="images/C- 4.webp" alt="Screenshot 4">
+                <div class="zoom-hint">Click to expand</div>
+            </div>
+        </div>            
+
+            
+            <!-- Video Responsive de YouTube -->
+            <div class="responsive-video">
+                <!-- Sustituye la URL en "src" por el enlace "Embed" de tu video de YouTube -->
+                <iframe src="https://www.youtube.com/embed/YR3__de00uY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
     </section>
 
+        <!-- Footer rápido y Botón de Steam -->
     <section class="contact" style="padding: 4rem 0;">
-        <div class="container">
+        <div class="container project-footer-links">
+            <a href="[store.steampowered.com](https://store.steampowered.com/app/ID_DEL_JUEGO)" target="_blank" class="btn-steam">View on Steam</a>
             <a href="index.html#projects" class="btn-primary">Back to Projects</a>
         </div>
     </section>
 
+    
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightboxOnBg(event)">
+        <div class="lightbox-inner" id="lightbox-inner">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">‹</button>
+            <img id="lightbox-img" src="" alt="">
+            <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
+    </div>
+    
+    <script>
+    const images = [
+        'images/C- 1.webp',
+        'images/C- 2.webp',
+        'images/C- 3.webp',
+        'images/C- 4.webp'
+    ];
+    let current = 0;
+    
+    function openLightbox(i) {
+        current = i;
+        document.getElementById('lightbox-img').src = images[i];
+        updateCounter();
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function closeLightboxOnBg(e) {
+        if (e.target === document.getElementById('lightbox')) closeLightbox();
+    }
+    function changeImage(dir) {
+        current = (current + dir + images.length) % images.length;
+        document.getElementById('lightbox-img').src = images[current];
+        updateCounter();
+    }
+    function updateCounter() {
+        document.getElementById('lightbox-counter').textContent = (current + 1) + ' / ' + images.length;
+    }
+    document.addEventListener('keydown', e => {
+        if (!document.getElementById('lightbox').classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') changeImage(1);
+        if (e.key === 'ArrowLeft') changeImage(-1);
+    });
+    </script>
+    
 </body>
+
 </html>
