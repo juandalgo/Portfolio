@@ -238,32 +238,67 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
 }
 
 /* Contact */
-.contact { 
-    padding: 10rem 0 8rem 0; 
-    text-align: center; 
-    position: relative; 
-    z-index: 10; 
+/* Contact / Premium Footer */
+.contact {
+    padding: 10rem 0 8rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
 }
-.contact h2 { 
-    font-size: 2.5rem; 
-    font-weight: 300; 
-    margin-bottom: 2rem; 
+
+.contact h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 3rem;
     color: var(--text-main);
 }
-.contact-links {
+
+.contact-premium-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.contact-card {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+    min-height: 140px;
+    padding: 1.75rem;
+    background-color: #151515;
+    border: 1px solid #262626;
+    transition: all 0.35s ease;
+    color: var(--text-main);
 }
-.accent-link { 
-    color: var(--accent-red); 
-    font-size: 1.2rem; 
-    border-bottom: 1px solid transparent;
-    padding-bottom: 0.2rem;
+
+.contact-card:hover {
+    border-color: var(--accent-red);
+    transform: translateY(-4px);
+    background-color: #181818;
 }
-.accent-link:hover { 
-    border-bottom: 1px solid var(--accent-red); 
+
+.contact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
 }
+
+.contact-value {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    word-break: break-word;
+}
+
+.contact-card:hover .contact-value {
+    color: #ffffff;
+}
+
 
 
 /* Responsive Update */
@@ -277,6 +312,19 @@ a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
     .project-desc p {
         text-align: left; /* En móviles el justificado suele crear huecos feos, mejor a la izquierda */
     }
+    .contact-premium-grid {
+    grid-template-columns: 1fr;
+    }
+    
+    .contact h2 {
+        font-size: 2rem;
+    }
+    
+    .contact-card {
+        min-height: auto;
+        padding: 1.4rem;
+    }
+
 }
 
 
